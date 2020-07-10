@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">bootcamp-concrete-julho-2020</string>
+    <string name="login">Login</string>
 </resources>
