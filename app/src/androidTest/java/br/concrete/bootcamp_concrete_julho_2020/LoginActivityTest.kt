@@ -46,7 +46,7 @@ class LoginActivityTest {
         onView(withId(R.id.email)).perform(typeText("daivid.v.leal@concrete.com.br"))
         onView(withId(R.id.login)).perform(click())
         //assert
-        onView(withText("Password field is Empty!")).check(matches(isDisplayed()))
+        onView(withText("Login/password invalid!")).check(matches(isDisplayed()))
     }
 
     @Test
@@ -58,7 +58,7 @@ class LoginActivityTest {
         }
 
         loginAssert {
-            checkMessageShown("Password is Invalid!")
+            checkMessageShown("Login/password invalid!")
         }
     }
 

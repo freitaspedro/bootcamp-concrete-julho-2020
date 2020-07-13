@@ -1,6 +1,6 @@
 package br.concrete.bootcamp_concrete_julho_2020
 
-class PasswordValidator (){
+class PasswordValidator {
 
     private val regexList = listOf(
         Regex(".{8,}"), // Tamanho maior ou igual a 8
@@ -10,14 +10,16 @@ class PasswordValidator (){
         Regex("[^a-z0-9]", RegexOption.IGNORE_CASE) // Caracter Especial
     )
 
-    fun validate(password: String): Boolean{
+    fun validate(password: String): Boolean {
         var result = true
-        regexList.forEach{
-            if(!password.contains(it)){
+        regexList.forEach {
+            if (!password.contains(it)) {
                 result = false
             }
         }
+
+        if (password.isEmpty()) result = false
+
         return result
     }
-
 }
