@@ -1,11 +1,18 @@
 package br.concrete.bootcamp_concrete_julho_2020
 
+import android.app.Activity
+import android.app.Instrumentation
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.Intents.intending
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
@@ -51,32 +58,26 @@ class LoginActivityTest {
 
     @Test
     fun givenPasswordIsInvalid_whenLogin_shouldShowPasswordIsInvalidError(){
-        loginAct {
-            typeText("daivid.v.leal@concrete.com.br", R.id.email)
-            typeText("@!5Ab", R.id.password)
-            click(R.id.login)
-        }
-
-        loginAssert {
-            checkMessageShown("Password is Invalid!")
-        }
+        //arrange
+        //act
+        onView(withId(R.id.email)).perform(typeText("daivid.v.leal@concrete.com.br"))
+        onView(withId(R.id.password)).perform(typeText("@!56Ab"))
+        onView(withId(R.id.login)).perform(click())
+        //assert
+        onView(withText("Password is Invalid!")).check(matches(isDisplayed()))
     }
 
     @Test
     fun givenValidEmailAndPassword_whenLogin_shouldGoToHomeActivity(){
-        loginArrange {
-            mockHomeActivity()
-        }
-
-        loginAct {
-            typeText("daivid.v.leal@concrete.com.br", R.id.email)
-            typeText("@!56Ab654", R.id.password)
-            click(R.id.login)
-        }
-
-        loginAssert {
-            checkGoTo(HomeActivity::class.java.name)
-        }
+        //arrange
+        intending(hasComponent(HomeActivity::class.java.name))
+            .respondWith(Instrumentation.ActivityResult(Activity.RESULT_CANCELED, null))
+        //act
+        onView(withId(R.id.email)).perform(typeText("daivid.v.leal@concrete.com.br"))
+        onView(withId(R.id.password)).perform(typeText("@!56Ab654"))
+        onView(withId(R.id.login)).perform(click())
+        //assert
+        intended(hasComponent(HomeActivity::class.java.name))
     }
 
 
