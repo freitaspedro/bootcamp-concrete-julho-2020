@@ -29,9 +29,10 @@ class LoginArrange{
 class LoginAct {
 
     infix fun act(func: LoginAct.() -> Unit): LoginAssert{
-        return LoginAssert().apply {
+        this.apply{
             func()
         }
+        return LoginAssert()
     }
 
     fun typeText(text: String, id: Int) {
@@ -48,7 +49,9 @@ class LoginAct {
 class LoginAssert {
 
     infix fun assert(func: LoginAssert.() -> Unit){
-        func()
+        this.apply {
+            func()
+        }
     }
 
     fun checkMessageShown(message: String) {
