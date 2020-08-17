@@ -11,7 +11,7 @@ class PasswordValidatorTest {
         //arrange
         //act
         val passwordValidator = PasswordValidator()
-        var result = passwordValidator.validate("@aB12")
+        val result = passwordValidator.validate("@aB12")
         //assert
         assertFalse(result)
     }
@@ -21,7 +21,7 @@ class PasswordValidatorTest {
         //arrange
         //act
         val passwordValidator = PasswordValidator()
-        var result = passwordValidator.validate("ab1#oiu3fd")
+        val result = passwordValidator.validate("ab1#oiu3fd")
         //assert
         assertFalse(result)
     }
@@ -31,7 +31,7 @@ class PasswordValidatorTest {
         //arrange
         //act
         val passwordValidator = PasswordValidator()
-        var result = passwordValidator.validate("QWWE#@#12133")
+        val result = passwordValidator.validate("QWWE#@#12133")
         //assert
         assertFalse(result)
     }
@@ -41,7 +41,7 @@ class PasswordValidatorTest {
         //arrange
         //act
         val passwordValidator = PasswordValidator()
-        var result = passwordValidator.validate("abpo#oiufd")
+        val result = passwordValidator.validate("abpo#oiufd")
         //assert
         assertFalse(result)
     }
@@ -51,7 +51,7 @@ class PasswordValidatorTest {
         //arrange
         //act
         val passwordValidator = PasswordValidator()
-        var result = passwordValidator.validate("aGG5oiu3fd")
+        val result = passwordValidator.validate("aGG5oiu3fd")
         //assert
         assertFalse(result)
     }
@@ -61,7 +61,7 @@ class PasswordValidatorTest {
         //arrange
         //act
         val passwordValidator = PasswordValidator()
-        var result = passwordValidator.validate("Ab12#@aB")
+        val result = passwordValidator.validate("Ab12#@aB")
         //assert
         assertTrue(result)
     }
