@@ -6,51 +6,38 @@ import java.lang.Exception
 
 var passwordValidator: PasswordValidator = PasswordValidator()
 
-fun PasswordValidatorTest.mockPasswordValidator(func: PasswordValidatorArrange.() -> Unit): PasswordValidatorAct {
-    PasswordValidatorArrange().apply {
-        func()
+fun PasswordValidatorTest.mockPasswordValidator(func: PasswordValidatorRobot.() -> Boolean): PasswordValidatorRobot {
+    return PasswordValidatorRobot().apply {
+        PasswordValidatorRobot.resultValidation = func()
     }
-    return PasswordValidatorAct()
 }
 
-class PasswordValidatorArrange{
+class PasswordValidatorRobot {
 
-    fun createPasswordValidator() {
-        passwordValidator = PasswordValidator()
-    }
-
-}
-
-class PasswordValidatorAct {
-
-    infix fun act(func: PasswordValidatorAct.() -> Boolean): PasswordValidatorAssert{
-        val passwordValidatorAssert = PasswordValidatorAssert()
-        passwordValidatorAssert.resultValidation = func()
-        return passwordValidatorAssert
+    companion object {
+        var resultValidation: Boolean? = null
     }
 
     fun validate(password: String): Boolean = passwordValidator.validate(password)
 
+    infix fun assert(func: PasswordValidatorResultRobot.() -> Unit) =
+        PasswordValidatorResultRobot().apply {
+            func()
+        }
 }
 
-class PasswordValidatorAssert {
+class PasswordValidatorResultRobot {
 
-    var resultValidation: Boolean? = null
-
-    infix fun assert(func: PasswordValidatorAssert.() -> Unit){
-        func()
-    }
-
-    fun isTrue(){
-        resultValidation?.let {
+    fun isTrue() {
+        PasswordValidatorRobot.resultValidation?.let {
             assertTrue(it)
         } ?: run {
             throw Exception("Result NOT INITIALIZED.")
         }
     }
 
-    fun isFalse(){
-        resultValidation?.let {
+    fun isFalse() {
+        PasswordValidatorRobot.resultValidation?.let {
             assertFalse(it)
         } ?: run {
             throw Exception("Result NOT INITIALIZED.")

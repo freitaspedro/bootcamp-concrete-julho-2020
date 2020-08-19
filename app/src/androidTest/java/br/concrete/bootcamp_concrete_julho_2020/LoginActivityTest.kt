@@ -30,6 +30,11 @@ class LoginActivityTest {
 
     @Test
     fun givenInitialState_shouldShowEmailAndPasswordEmpty(){
+        mockHomeActivity {  } act {} assert {
+            checkTextOnEditText("", R.id.email)
+            checkTextOnEditText("", R.id.password)
+        }
+
         onView(withId(R.id.email))
             .check(matches(withText("")))
         onView(withId(R.id.password))
@@ -70,26 +75,14 @@ class LoginActivityTest {
     @Test
     fun givenValidEmailAndPassword_whenLogin_shouldGoToHomeActivity(){
         //arrange
-        /*intending(hasComponent(HomeActivity::class.java.name))
+        intending(hasComponent(HomeActivity::class.java.name))
             .respondWith(Instrumentation.ActivityResult(Activity.RESULT_CANCELED, null))
         //act
         onView(withId(R.id.email)).perform(typeText("daivid.v.leal@concrete.com.br"))
         onView(withId(R.id.password)).perform(typeText("@!56Ab654"))
         onView(withId(R.id.login)).perform(click())
         //assert
-        intended(hasComponent(HomeActivity::class.java.name))*/
-
-        // **************** ------------
-
-        mockHomeActivity {
-            mockGoToHomeActivity()
-        } act {
-            typeText("daivid.v.leal@concrete.com.br", R.id.email)
-            typeText("!QWE@adsf3243", R.id.password)
-            click(R.id.login)
-        } assert {
-            checkGoTo(HomeActivity::class.java.name)
-        }
+        intended(hasComponent(HomeActivity::class.java.name))
     }
 
 }
