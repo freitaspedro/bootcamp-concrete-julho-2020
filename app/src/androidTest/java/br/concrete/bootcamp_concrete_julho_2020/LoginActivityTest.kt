@@ -30,11 +30,6 @@ class LoginActivityTest {
 
     @Test
     fun givenInitialState_shouldShowEmailAndPasswordEmpty(){
-        mockHomeActivity {  } act {} assert {
-            checkTextOnEditText("", R.id.email)
-            checkTextOnEditText("", R.id.password)
-        }
-
         onView(withId(R.id.email))
             .check(matches(withText("")))
         onView(withId(R.id.password))

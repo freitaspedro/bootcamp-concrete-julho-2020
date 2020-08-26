@@ -17,9 +17,9 @@ fun LoginActivityTest.mockHomeActivity(func: LoginRobotArrange.() -> Unit): Logi
     return LoginRobotAct()
 }
 
-class LoginRobotArrange{
+class LoginRobotArrange {
 
-    fun mockGoToHomeActivity(){
+    fun mockGoToHomeActivity() {
         Intents.intending(hasComponent(HomeActivity::class.java.name))
             .respondWith(Instrumentation.ActivityResult(Activity.RESULT_CANCELED, null))
     }
@@ -28,7 +28,7 @@ class LoginRobotArrange{
 
 class LoginRobotAct {
 
-    fun typeText(text: String, id: Int) {
+    private fun typeText(text: String, id: Int) {
         Espresso.onView(ViewMatchers.withId(id))
             .perform(ViewActions.typeText(text))
     }
@@ -37,25 +37,28 @@ class LoginRobotAct {
         Espresso.onView(withId(id)).perform(ViewActions.click())
     }
 
-    infix fun act(func: LoginRobotAct.() -> Unit) =
-        this.apply{
+    infix fun act(func: LoginRobotAct.() -> Unit): LoginRobotAssert{
+        this.apply {
             func()
         }
-
-    infix fun assert(func: LoginRobotAssert.() -> Unit) =
-        LoginRobotAssert().apply {
-            func()
-        }
+        return LoginRobotAssert()
+    }
 
 }
 
 class LoginRobotAssert {
+
+    infix fun assert(func: LoginRobotAssert.() -> Unit) =
+        this.apply {
+            func()
+        }
+
     fun checkMessageShown(message: String) {
         Espresso.onView(ViewMatchers.withText(message))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
-    fun checkTextOnEditText(text: String, id: Int){
+    fun checkTextOnEditText(text: String, id: Int) {
         Espresso.onView(withId(id))
             .check(ViewAssertions.matches(ViewMatchers.withText(text)))
     }

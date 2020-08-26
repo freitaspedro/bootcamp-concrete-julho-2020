@@ -7,10 +7,10 @@ import org.junit.Test
 class PasswordValidatorTest {
 
     @Test
-    fun givenPasswordShorterThanEight_whenValidate_shouldReturnFalse(){
+    fun givenPasswordShorterThanEightCharacters_whenValidate_shouldReturnFalse(){
         //arrange
-        //act
         val passwordValidator = PasswordValidator()
+        //act
         val result = passwordValidator.validate("@aB12")
         //assert
         assertFalse(result)
@@ -19,8 +19,8 @@ class PasswordValidatorTest {
     @Test
     fun givenPasswordWithoutUpperCase_whenValidate_shouldReturnFalse(){
         //arrange
-        //act
         val passwordValidator = PasswordValidator()
+        //act
         val result = passwordValidator.validate("ab1#oiu3fd")
         //assert
         assertFalse(result)
@@ -29,8 +29,8 @@ class PasswordValidatorTest {
     @Test
     fun givenPasswordWithoutLowerCase_whenValidate_shouldReturnFalse(){
         //arrange
-        //act
         val passwordValidator = PasswordValidator()
+        //act
         val result = passwordValidator.validate("QWWE#@#12133")
         //assert
         assertFalse(result)
@@ -39,8 +39,8 @@ class PasswordValidatorTest {
     @Test
     fun givenPasswordWithoutNumber_whenValidate_shouldReturnFalse(){
         //arrange
-        //act
         val passwordValidator = PasswordValidator()
+        //act
         val result = passwordValidator.validate("abpo#oiufd")
         //assert
         assertFalse(result)
@@ -49,8 +49,8 @@ class PasswordValidatorTest {
     @Test
     fun givenPasswordWithoutSpecialChar_whenValidate_shouldReturnFalse(){
         //arrange
-        //act
         val passwordValidator = PasswordValidator()
+        //act
         val result = passwordValidator.validate("aGG5oiu3fd")
         //assert
         assertFalse(result)
@@ -59,8 +59,8 @@ class PasswordValidatorTest {
     @Test
     fun givenCorrectPassword_whenValidate_shouldReturnTrue(){
         //arrange
-        //act
         val passwordValidator = PasswordValidator()
+        //act
         val result = passwordValidator.validate("Ab12#@aB")
         //assert
         assertTrue(result)
