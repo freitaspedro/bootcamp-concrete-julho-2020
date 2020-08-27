@@ -33,8 +33,20 @@ class LoginRobotAct {
             .perform(ViewActions.typeText(text))
     }
 
-    fun click(id: Int) {
+    fun typeEmail(email: String){
+        typeText(email, R.id.email)
+    }
+
+    fun typePassword(password: String){
+        typeText(password, R.id.password)
+    }
+
+    private fun click(id: Int) {
         Espresso.onView(withId(id)).perform(ViewActions.click())
+    }
+
+    fun login(){
+        click(R.id.login)
     }
 
     infix fun act(func: LoginRobotAct.() -> Unit): LoginRobotAssert{
@@ -63,7 +75,11 @@ class LoginRobotAssert {
             .check(ViewAssertions.matches(ViewMatchers.withText(text)))
     }
 
-    fun checkGoTo(activityName: String) {
+    private fun checkGoTo(activityName: String) {
         Intents.intended(hasComponent(activityName))
+    }
+
+    fun checkGoToHome(){
+        checkGoTo(HomeActivity::class.java.name)
     }
 }

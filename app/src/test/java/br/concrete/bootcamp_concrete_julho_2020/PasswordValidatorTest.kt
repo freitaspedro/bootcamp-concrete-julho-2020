@@ -58,12 +58,18 @@ class PasswordValidatorTest {
 
     @Test
     fun givenCorrectPassword_whenValidate_shouldReturnTrue(){
-        //arrange
+        /*//arrange
         val passwordValidator = PasswordValidator()
         //act
         val result = passwordValidator.validate("Ab12#@aB")
         //assert
-        assertTrue(result)
+        assertTrue(result)*/
+
+        mockPasswordValidator {
+            validate("Ab12#@aB")
+        } assert {
+            isTrue()
+        }
     }
 
 }

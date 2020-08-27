@@ -3,6 +3,7 @@ package br.concrete.bootcamp_concrete_julho_2020
 import android.app.Activity
 import android.app.Instrumentation
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -69,7 +70,7 @@ class LoginActivityTest {
 
     @Test
     fun givenValidEmailAndPassword_whenLogin_shouldGoToHomeActivity(){
-        //arrange
+        /*//arrange
         intending(hasComponent(HomeActivity::class.java.name))
             .respondWith(Instrumentation.ActivityResult(Activity.RESULT_CANCELED, null))
         //act
@@ -77,7 +78,17 @@ class LoginActivityTest {
         onView(withId(R.id.password)).perform(typeText("@!56Ab654"))
         onView(withId(R.id.login)).perform(click())
         //assert
-        intended(hasComponent(HomeActivity::class.java.name))
+        intended(hasComponent(HomeActivity::class.java.name))*/
+
+        mockHomeActivity {
+            mockGoToHomeActivity()
+        } act {
+            typeEmail("daivid@gmail.com")
+            typePassword("@!56Ab654")
+            login()
+        } assert {
+            checkGoToHome()
+        }
     }
 
 }
